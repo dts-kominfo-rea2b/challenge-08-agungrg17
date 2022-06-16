@@ -5,16 +5,89 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Challenge - DOM</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: bisque;
+      }
+      #app {
+        width: 80%;
+        min-height: 80vh;
+        background-color: rgb(233, 232, 232);
+        border-radius: 1rem;
+        padding: 3rem;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
+      }
+      #todo-title {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+      #todo-subtitle {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+      #todo-input {
+        width: 99%;
+        height: 3rem;
+        border-radius: 0.5rem;
+        border: 1px solid #ccc;
+        background-color: #fafafa;
+        padding: 0.5rem;
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+      }
+
+      #todo-submit {
+        width: 101%;
+        height: 3rem;
+        border-radius: 0.5rem;
+        border: 1px solid #ccc;
+        background-color: #9cbde2;
+        padding: 0.5rem;
+        margin:auto;
+        cursor: pointer;
+        
+      }
+
+      #todo-output {
+        width: 97%;
+        height: 20rem;
+        border-radius: 0.5rem;
+        border: 1px solid #ccc;
+        background-color: #fafafa;
+        padding-top: 0.5rem;
+        overflow-y: scroll;
+        font-size: 1.5rem;
+      }
+    </style>
   </head>
   <body>
     <div id="app">
+      <header>
+        <h1 id="todo-title">To-Do List</h1>
+        <h3 id="todo-subtitle">-- Today I Need To --</h3>
+      
       <!-- TODO: Buatlah sebuah header dengan id todo-title -->
       <!-- TODO: Buatlah sebuah subtitle dengan id todo-subtitle -->
-
+      </header>
+      <div id="content">
+        <input id = "todo-input" type="text">
+        <button id="todo-submit">Submit</button>
       <!-- Section: input -->
       <!-- TODO: Buatlah sebuah input bertipe text dengan id todo-input -->
       <!-- TODO: Buatlah sebuah button dengan id todo-submit -->
 
+        <div id="list">
+          <ul id="todo-output">
+         
+          </ul>
+        </div>
+      </div>
       <!-- Section output -->
       <!-- TODO: Buatlah sebuah <ul> dengan id todo-output -->
     </div>
@@ -22,20 +95,37 @@
     <!-- ! Untuk tantangan ini, script jangan diubah ke external js yah ! -->
     <script>
       // TODO: Deklarasi variable sesuai dengan kebutuhan di sini
-      let button;
-      let input;
-      let output;
+      let button = document.querySelector("#todo-submit");
+      let input = document.querySelector("#todo-input");
+      let output = document.querySelector("#todo-output");
 
       // TODO: Buatlah sebuah fungsi dengan nama fnClickHandler
       // Fungsi yang digunakan untuk menambahkan tulisan
       // Jangan ubah cara deklarasi fungsinya, cukup isi saja
-      function fnClickHandler(toDoItem) {}
-
+      function fnClickHandler(toDoItem) {
+        let list = document.createElement("li");
+        list.textContent = toDoItem;
+        list.className = "todo-list";
+        input.value = " ";
+        return list;
+      }
+      //output.append(...fnClickHandler);
       // TODO: register event onclick / addEventListener untuk button
       // akan menjalankan fungsi fnClickHandler
-      
+      button.addEventListener('click', () => {
+        const inputText = input.value;
+        return output.appendChild(fnClickHandler(inputText));
+        
+      })
       // TODO: register event onkeypress / addEventListener untuk input
       // sehingga saat di input ditekan enter akan menjalankan fungsi fnClickHandler juga
+      input.addEventListener('keypress', (event) => {
+        if (event.key === "Enter") {
+          const inputText = input.value;
+          return output.appendChild(fnClickHandler(inputText));
+          
+        }
+      })
     </script>
   </body>
 </html>
